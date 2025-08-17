@@ -1,10 +1,10 @@
-import json
 from flask import Flask, request
 from flask_cors import CORS
+from constants import NODE_URI
 from db import find_user, compare_passwords
 import requests
 app = Flask(__name__)
-CORS(app, origins=["http://localhost:5173"], supports_credentials=True)
+CORS(app, origins="*", supports_credentials=True)
 
 @app.route('/')
 def hello_world():
@@ -28,12 +28,12 @@ def log_in():
         return { "message": "Incorrect Password" }, 401
 
     try:
-        response = requests.get('http://127.0.0.1:3000/get-intro')
+        response = requests.get(f'{NODE_URI}/get-intro')
         response.raise_for_status()
         output = response.json().get('output')
         return { "message": "Login successful", "output": output }, 200
-    except requests.exceptions.RequestException as e:
-        return { "message": f"Could not get intro: {e}" }, 503
+    except:
+        return { "message": f"Could not get intro" }, 503
 
 
 if __name__ == "__main__":
