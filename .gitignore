@@ -3,4 +3,17 @@
 venv
 .vscode/
 
+.pytest_cache/
+.DS_Store
+
+
+
 __pycache__/
+
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+coverage_html/
+
+.azure/
