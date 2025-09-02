@@ -31,7 +31,6 @@ back/
 
 ## Features
 
-### ✅ **Implemented**
 - **Layered Architecture**: Controllers → Services → Repository → Database
 - **Data Validation**: Pydantic models with comprehensive validation
 - **Configuration Management**: Environment-based configuration
@@ -43,14 +42,14 @@ back/
 - **User Registration**: Create new user accounts
 - **External API Integration**: Node.js service integration
 
-### 🔧 **Architecture Principles Applied**
+### **Architecture Principles Applied**
 - **Separation of Concerns**: Each layer has distinct responsibilities
 - **Dependency Injection**: Services injected into controllers
 - **Single Responsibility**: Each class has one clear purpose
 - **Open/Closed Principle**: Easy to extend without modification
 - **Application Factory Pattern**: Configurable app creation
 
-## Quick Start
+## How to set up
 
 ### 1. Environment Setup
 ```bash
