@@ -1,15 +1,11 @@
-"""
-Security middleware for the Flask application
-Implements rate limiting, input sanitization, and protection against common attacks
-"""
-
 from flask import request, jsonify, g
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from flask_talisman import Talisman
+import os
 import bleach
 import logging
-from typing import Optional, Dict, Any
+from typing import Any
 import time
 from collections import defaultdict, deque
 import ipaddress
@@ -39,10 +35,12 @@ class SecurityMiddleware:
         limiter.init_app(app)
         
         # Configure security headers with Talisman
+        # Disable HTTPS redirect (302) inside test environment to keep tests deterministic
+        is_testing = app.config.get('TESTING') or os.getenv('FLASK_ENV') == 'testing'
         Talisman(
             app,
-            force_https=True,
-            strict_transport_security=True,
+            force_https=not is_testing,
+            strict_transport_security=not is_testing,  # skip HSTS in tests
             content_security_policy={
                 'default-src': "'self'",
                 'script-src': "'self' 'unsafe-inline'",
